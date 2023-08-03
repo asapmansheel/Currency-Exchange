@@ -40,27 +40,27 @@ public abstract class Currency implements Exchangeable {
 
   // Implement exchange method
   public void exchange(Currency other, double amount) {
-    DecimalFormat decimalFormat = new DecimalFormat("#.00");
+    DecimalFormat f = new DecimalFormat("#0.00");
 
     if (this.totalFunds < amount) {
       System.out.println();
-      System.out.println("Uh oh - " + this.planetName + " only has an available balance of $" + this.totalFunds + "which is less than $" + amount + "!");
+      System.out.println("Uh oh - " + this.planetName + " only has an available balance of $" + f.format(this.totalFunds) + " which is less than $" + f.format(amount) + "!");
       System.out.println();
     }
 
     else {
-      System.out.println("Converting from " + this.currencyName+ " to " + other + " and initiating transfer...");
+      System.out.println("Converting from " + this.currencyName+ " to " + other.currencyName + " and initiating transfer...");
 
-      double earthDollars = toEarthDollars(amount);
-      double newAmount = fromEarthDollars(earthDollars);
+      double earthDollars = this.toEarthDollars(amount);
+      double newAmount = other.fromEarthDollars(earthDollars);
 
-      System.out.println("$" + amount + " " + this.currencyName + " = $" + earthDollars + " = $" + newAmount);
+      System.out.println("$" + f.format(amount) + " " + this.currencyName + " = $" + f.format(earthDollars) + " EarthDollars " + " = $" + f.format(newAmount) + " " + other.currencyName);
 
-      other.addFunds(newAmount);
-      this.subtractFunds(amount);
-      
-      System.out.println(this.planetName + " has a total of $" + this.getTotalFunds() + " " + this.currencyName);
-      System.out.println(other.planetName + " has a total of $" + other.getTotalFunds() + " " + other.currencyName);
+      other.setTotalFunds(other.addFunds(newAmount));
+      this.setTotalFunds(this.subtractFunds(amount));
+
+      System.out.println(this.planetName + " has a total of $" + f.format(this.getTotalFunds()) + " " + this.currencyName);
+      System.out.println(other.planetName + " has a total of $" + f.format(other.getTotalFunds()) + " " + other.currencyName);
       System.out.println();
     }
   }
