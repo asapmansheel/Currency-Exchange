@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 public abstract class Currency implements Exchangeable {
   String currencyName;
   String planetName;
@@ -23,6 +25,14 @@ public abstract class Currency implements Exchangeable {
     this.totalFunds = totalFunds;
   }
 
+  public double addFunds (double x) {
+    return this.totalFunds + x;
+  }
+
+  public double subtractFunds (double x) {
+    return this.totalFunds - x;
+  }
+
   // Constructor
   public Currency (double totalFunds) {
     this.totalFunds = totalFunds;
@@ -30,7 +40,29 @@ public abstract class Currency implements Exchangeable {
 
   // Implement exchange method
   public void exchange(Currency other, double amount) {
+    DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
+    if (this.totalFunds < amount) {
+      System.out.println();
+      System.out.println("Uh oh - " + this.planetName + " only has an available balance of $" + this.totalFunds + "which is less than $" + amount + "!");
+      System.out.println();
+    }
+
+    else {
+      System.out.println("Converting from " + this.currencyName+ " to " + other + " and initiating transfer...");
+
+      double earthDollars = toEarthDollars(amount);
+      double newAmount = fromEarthDollars(earthDollars);
+
+      System.out.println("$" + amount + " " + this.currencyName + " = $" + earthDollars + " = $" + newAmount);
+
+      other.addFunds(newAmount);
+      this.subtractFunds(amount);
+      
+      System.out.println(this.planetName + " has a total of $" + this.getTotalFunds() + " " + this.currencyName);
+      System.out.println(other.planetName + " has a total of $" + other.getTotalFunds() + " " + other.currencyName);
+      System.out.println();
+    }
   }
 
   // Abstract methods
