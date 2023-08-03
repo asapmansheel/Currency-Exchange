@@ -3,6 +3,7 @@ public class Currency {
   String planetName;
   double totalFunds;
 
+  // Getters and setters
   public String getCurrencyName() {
     return currencyName;
   }
@@ -21,4 +22,10 @@ public class Currency {
   public void setTotalFunds(double totalFunds) {
     this.totalFunds = totalFunds;
   }
+
+  // Constructor
+  public Currency(double totalFunds) {
+    this.totalFunds = totalFunds;
+  }
+  
 }
