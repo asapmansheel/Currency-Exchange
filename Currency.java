@@ -1,4 +1,4 @@
-public class Currency {
+public abstract class Currency implements Exchangeable {
   String currencyName;
   String planetName;
   double totalFunds;
@@ -24,8 +24,17 @@ public class Currency {
   }
 
   // Constructor
-  public Currency(double totalFunds) {
+  public Currency (double totalFunds) {
     this.totalFunds = totalFunds;
   }
+
+  // Implement exchange method
+  public void exchange(Currency other, double amount) {
+
+  }
+
+  // Abstract methods
+  public abstract double toEarthDollars(double amount);
+  public abstract double fromEarthDollars(double EarthDollars);
   
 }

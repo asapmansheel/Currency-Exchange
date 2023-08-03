@@ -6,4 +6,11 @@ public class Saturn extends Currency {
     planetName = "Saturn";
   }
   
+  public double toEarthDollars(double amount) {
+    return amount / ED_TO_SS;
+  }
+
+  public double fromEarthDollars(double EarthDollars) {
+    return EarthDollars * ED_TO_SS;
+  }
 }
